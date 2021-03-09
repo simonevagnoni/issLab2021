@@ -62,13 +62,13 @@ public class IssWsSupport implements IssOperations {
     public void onMessage(String message)   {
         try {
              //{"collision":"true ","move":"..."} or {"sonarName":"sonar2","distance":19,"axis":"x"}
-            //System.out.println("        IssWsSupport | onMessage:" + message);
+            System.out.println("        IssWsSupport | onMessage:" + message);
             JSONObject jsonObj = new JSONObject(message) ;
             if (jsonObj.get("endmove") != null) {
                 //HANDLE THE ANSWER
-                boolean endmove = jsonObj.getBoolean("endmove");
-                String  move    = jsonObj.getString("move");
-                answerSupport.put(""+endmove, move);
+                String endmove = jsonObj.getString("endmove");
+                String  move   = jsonObj.getString("move");
+                if( ! endmove.equals("notallowed") )  answerSupport.put(endmove, move);
                 //System.out.println("        IssWsSupport | onMessage endmove=" + endmove);
             } else if (jsonObj.get("collision") != null) {
                 boolean collision = jsonObj.getBoolean("collision");
@@ -92,10 +92,6 @@ public class IssWsSupport implements IssOperations {
         try {
              //this.userSession.getAsyncRemote().sendText(message);
             userSession.getBasicRemote().sendText(msg); //synch: blocks until the message has been transmitted
-            //The WEnv receiver sends always an answer.
-            //Thus, it does not handle message N+1 before the end of msg N
-            //Do we transform the forward in a request or
-            //do we assume that the user put an adequate interval between messages?
             System.out.println("        IssWsSupport | DONE forward " + msg);
         }catch( Exception e){
             System.out.println("        IssWsSupport | ERROR forward  " + e.getMessage());
@@ -108,7 +104,6 @@ public class IssWsSupport implements IssOperations {
             //System.out.println("        IssWsSupport | request " + msg);
             //this.userSession.getAsyncRemote().sendText(message);
             this.userSession.getBasicRemote().sendText(msg);    //synch: blocks until the message has been transmitted
-            //DO NOT answerSupport.engage()
         }catch( Exception e){
             System.out.println("        IssWsSupport | request ERROR " + e.getMessage());
         }
@@ -120,7 +115,7 @@ public class IssWsSupport implements IssOperations {
             //this.userSession.getAsyncRemote().sendText(message);
             request(msg);
             //WAIT for the answer (reply) received by onMessage
-            answerSupport.engage();
+            //answerSupport.engage();   //OVERCOME: see version 2.0 of virtualrobot
             return answerSupport.get(); //wait for the answer
         }catch( Exception e){
             System.out.println("        IssWsSupport | request ERROR " + e.getMessage());
