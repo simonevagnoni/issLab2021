@@ -115,7 +115,7 @@ h1 {
 
 h2 {
     background-color: #9ed8ff;
-    font-size: 130%;
+    font-size: 150%;
 }
 
 h3 {
@@ -260,13 +260,518 @@ function myFunction() {
     
 <body>
 <div id="top">
-<h1>LabIss2021 |  Using the virtual robot<font size="5"></font> </h1>
+<h1>LabIss2021 |  Virtual robot clients<font size="5"></font> </h1>
 </div>  
 
 
 <div class="body"> 
 <h2>Introduction</h2>
+
+
+<h2>USING THE VIRTUAL ROBOT</h2>
+
+Examples of clients are reported in project <a href="../" target="code">it.unibo.virtualrobotclient</a>
+
+<h3>Clients written in Node.js </h3>
+
+Each of the following programs (<ks>prog.js</ks>) can be executed by writing:  
+<pre>node <ks>prog</ks></pre>
+<hr/>
+
+<center><table style="width:95%">
+<tbody>	
+
+<tr>
+<td style="width:50%"><a href="../app/src/main/js/http/axiosclientToWenv.js" target="code">axiosclientToWenv.js</a>
+<hr/>
+<m>The client  <i>walks along the boundary</i> of the room.
+<br/>The client interacts via <em> HTTP</em>  with the WEnv by using the  
+<a href="https://www.npmjs.com/package/axios" target="web">axios</a>  library for Node.js. </m>
+
+
+</td>
+<td>
+<div class="remark">
+<k>Key point</k>: <tt>Synchronous REQUEST-RESPONSE</tt> and  <i>functional style based on recursive callback functions</i>
+</div>
+
+</td>
+</tr>
+
+
+<tr>
+<td style="width:50%"><a href="../app/src/main/js/http/httpClientToWenv.js" target="code">httpClientToWenv.js</a>
+
+<hr/>
+<m>The client  <i>walks along the boundary</i> of the room.
+<br/>The client interacts via <em> HTTP</em>  with the WEnv by using the  
+<a href="https://www.npmjs.com/package/axios" target="web">axios</a>  library for Node.js. 
+</m>
+
+</td>
+<td>
+<div class="remark">
+<k>Key point</k>: <tt>Synchronous REQUEST-RESPONSE</tt> and 
+<i>use of state variables and an (user-defined) <ks>doBoundary</ks> operation that embeds the business logic</i>
+</div>
+</td>
+</tr>
+
+<tr>
+<td style="width:50%">
+<a href="../app/src/main/js/wsclient/wsclientToWenv.js" target="code">wsclientToWenv.js</a>
+<hr/>
+<m>The client first <i>moves forward and backward</i>. Afterwards, it works as an <em>observer</em> that:
+<ul>
+<li>show information emitted by some sonar</li>
+<li>rings a bell if the virtual robot collides with some virtual obstacle </li>
+</ul>
+The client interacts with the WEnv via <em>web-scokets</em>, by using the  
+<a href="https://www.npmjs.com/package/websocket" target="web">WebSocket</a>  library for Node.js. 
+</m>
+</td>
+<td> 
+<div class="remark">
+<k>Key point</k>: <tt>Asynchronous interaction.</tt> <i>Example of Node/Javascript programming</i><br/>
+<m>sequence of asynchronous commands sent with <ks>setTimeout</ks> and input messages handled
+by a callback related to <ks>connection.on('message', function(msg){ ... })</ks> 
+</m>
+</div>
+</td>
+</tr>
+
+
+
+
+<tr>
+<td style="width:50%">
+<a href="../app/src/main/js/wsclient/wsclientBoundaryToWenv.js" target="code">wsclientBoundaryToWenv.js</a>
+<hr/>
+<m>The client  <i>walks along the boundary</i> of the room. Afterwards, it closes the connection with <tt>WEnv</tt>.
+<br/>The client interacts with the <tt>WEnv</tt> via <em>web-scokets</em>, by using the  
+<a href="https://www.npmjs.com/package/websocket" target="web">WebSocket</a>  library for Node.js. 
+</td>
+<td> 
+ <div class="remark">
+<k>Key point</k>: <tt>Asynchronous interaction.</tt> 
+<i>Modular Node program that separates the business logic from the low-level ws-socket interaction.</i><br/>
+<m>The business logic is defined in the operation  <ks>walkBoundary</ks> of the module 
+<a href="../app/src/main/js/wsclient/wsclientBoundaryLogic.js" target="code"><ks>wsclientBoundaryLogic.js</ks></a>.<br/>
+This module is used also in the <tt>HTML</tt> page 
+<a href="../app/src/main/js/wsclient/wsclientToWenv.html" target="webcode"><ks>wsclientToWenv.html</ks></a>
+</m>
+</div>
+</td>
+</tr>
+
+<!--
+<tr>
+<td style="width:50%"><a href="../app/src/main/js/boundaryReactiveWebsocket.js" target="code">boundaryReactiveWebsocket.js</a></td>
+<td>
+The client  <i>walks along the boundary</i> of the room in a event-driven way
+<br/><br/>
+The client interacts with the WEnv via <em>web-scokets</em>, by using the  
+<a href="https://www.npmjs.com/package/websocket" target="web">websocket</a>  library for Node.js. 
+<br/> <br/> 
+The <em>business logic</em> for a robot that walks along a boundary in a event-driven way is defined in
+<a href="../../it.unibo.virtualrobotclient/app/src/main/js/tripBoundaryBusinessLogic.js" target="code">tripBoundaryBusinessLogic.js</a>,
+by abstracting from the technical details about (websocket) connections.
+
+  <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSocket" target="web">WebSocket</a> 
+</td>
+</tr>
+
+
+<tr>
+<td style="width:50%"><a href="../../it.unibo.virtualrobotclient/app/src/main/js/boundaryReactiveWs.js" target="code">boundaryReactiveWs.js</a></td>
+<td>
+The client  <i>walks along the boundary</i> of the room in a event-driven way
+<br/><br/>
+The client interacts with the WEnv via <em>web-scokets</em>, by using the  
+<a href="https://github.com/websockets/ws" target="web">https://github.com/einaros/ws</a> library for Node.js 
+(see also <a href="https://www.npmjs.com/package/ws" target="web">ws: a Node.js WebSocket library</a>)
+ <br/> <br/> 
+The <em>business logic</em> for a robot that walks along a boundary in a event-driven way is defined in
+<a href="../../it.unibo.virtualrobotclient/app/src/main/js/tripBoundaryBusinessLogic.js" target="code">tripBoundaryBusinessLogic.js</a>,
+by abstracting from the technical details about (websocket) connections.
  
+  <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSocket" target="web">WebSocket</a> 
+</td>
+</tr>
+ -->
+</tbody>	
+</table></center>
+
+<h3>Clients written in Java </h3>
+<center><table style="width:95%">
+<tbody>	
+
+<tr>
+<td style="width:50%">
+<a href="../app/src/main/java/it/unibo/wenv/ClientBoundaryUsingPost.java" target="code">ClientBoundaryUsingPost.java</a>
+<hr/>
+<m>
+The client <i>walks along the boundary</i> of the room. 
+<br/> 
+It exploits the library 
+<a href="https://hc.apache.org/httpcomponents-client-ga/tutorial/html/index.html " target="web">org.apache.http.client</a> (see also 
+<a href="https://www.vogella.com/tutorials/ApacheHttpClient/article.html" target="web">HttpClient - Tutorial</a>)
+to implement <em> HTTP</em>  requests.
+<br/> 
+The handling of <em>JSON</em> answers is done using  the library 
+<a href="https://javaee.github.io/javaee-spec/javadocs/javax/json/stream/JsonParser.html" target="web">javax.json.stream.JsonParser</a>
+or the library 
+<a href="https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple" target="web">org.json.simple.parser</a>
+(see also <a href="https://www.tutorialspoint.com/json_simple/json_simple_quick_guide.htm" target="web">JSON.simple - Quick Guide</a>)  
+<a href="https://mvnrepository.com/artifact/org.json/json/20201115" target="web">org.json</a> 
+(see also <a href="https://www.baeldung.com/java-org-json" target="web">Introduction to JSON-Java</a>)
+
+</m>
+</td>
+<td>
+ <div class="remark">
+<k>Key point</k>: <tt>Synchronous REQUEST-RESPONSE</tt> used in a <ks>doBoundary</ks> operation 
+that implements the business logic in a functional style based on recursive functions. 
+</div>
+</td>
+</tr>
+
+<tr>
+<td><a href="../app/src/main/java/it/unibo/wenv/ClientBoundaryWebsockBasicSynch.java" target="code">ClientBoundaryWebsockBasicSynch.java</a><br/>
+<hr/>
+<m>The client  <i>walks along the boundary</i> of the room.
+<br/>
+It exploits the  
+<a href="../app/src/main/java/it/unibo/supports/IssWsSupport.java" target="code">IssWsSupport</a>
+by means of the
+<a href="../app/src/main/java/it/unibo/supports/IssCommsSupportFactory.java" target="code">IssCommsSupportFactory</a>, given the
+configuration file <a href="../WebsocketBasicConfig.txt" target="code">WebsocketBasicConfig.txt</a> 
+</m>
+</td>
+<td> <div class="remark">
+<m>Class annotated with <a href="../app/src/main/java/it/unibo/annotations/IssProtocolSpec.java" target="code">IssProtocolSpec</a>,
+managed by <a href="../app/src/main/java/it/unibo/supports/RobotApplicationStarter.java" target="code">RobotApplicationStarter</a>
+<pre>@IssProtocolSpec( configFile ="WebsocketBasicConfig.txt" )</pre></m>
+<k>Key point</k>: <tt>Synchronous REQUEST-RESPONSE</tt>. The business logic is defined by a <ks>doBoundary</ks> operation.<br/>
+</div>
+</td>
+</tr>
+
+<tr>
+<td><a href="../app/src/main/java/it/unibo/wenv/ClientBoundaryWebsockBasicAsynch.java" target="code">ClientBoundaryWebsockBasicAsynch.java</a><br/>
+<hr/>
+<m>The client  <i>walks along the boundary</i> of the room.
+<br/>
+It exploits the  
+<a href="../app/src/main/java/it/unibo/supports/IssWsSupport.java" target="code">IssWsSupport</a>
+by means of the
+<a href="../app/src/main/java/it/unibo/supports/IssCommsSupportFactory.java" target="code">IssCommsSupportFactory</a>, given the
+configuration file <a href="../WebsocketBasicConfig.txt" target="code">WebsocketBasicConfig.txt</a> 
+
+</m>
+</td>
+<td> <div class="remark">
+<m>Class annotated with <a href="../app/src/main/java/it/unibo/annotations/IssProtocolSpec.java" target="code">IssProtocolSpec</a>,
+managed by <a href="../app/src/main/java/it/unibo/supports/RobotApplicationStarter.java" target="code">RobotApplicationStarter</a>
+<pre>@IssProtocolSpec( configFile ="WebsocketBasicConfig.txt" )</pre></m>
+<k>Key point</k>: <tt>Asynchronous REQUEST-RESPONSE</tt>. The business logic is defined by a 
+<a href="../app/src/main/java/it/unibo/wenv/RobotObserver.java" target="code">RobotObserver</a>
+
+
+<ks>doRobotAsynchMove</ks> operation.<br/>
+ 
+
+</div>
+</td>
+</tr>
+
+
+<tr>
+<td><a href="../app/src/main/java/it/unibo/wenv/ClientBoundaryUsingWebsock.java" target="code">ClientBoundaryUsingWebsock.java</a>
+<hr/>
+<m>The client  <i>walks along the boundary</i> of the room.
+<br/>
+The client interacts with the WEnv via <em>web-scokets</em>, by using the  
+<a href="http://losviluppatore.it/i-websocket-comunicazione-asincrona-full-duplex-per-il-web/" target="web">javax.websocket</a>  library.
+</m>
+</td>
+<td> <div class="remark">
+<k>Key point</k>: <tt>Synchronous REQUEST-RESPONSE</tt> used in a <ks>doBoundary</ks> operation 
+that implements the business logic within
+a class <a href="../app/src/main/java/it/unibo/supports/RobotSupport.java" target="code">RobotSupport.java</a>.
+<i> </i>
+</div>
+</td>
+</tr>
+ 
+</tbody>	
+</table></center>
+
+
+<!--
+<h3>Clients written in Kotlin </h3>
+<center><table style="width:95%">
+<tbody>	
+
+ 
+
+
+
+ 
+<tr>
+<td style="width:50%"><a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/interaction/WEnvHTTPSupport.kt" target="code">
+WEnvHTTPSupport.kt</a>
+<br/><br/><m>
+<a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/interaction/UseWEnvHTTPSupport.kt" target="code">
+UseWEnvHTTPSupport</a>:
+<ul>
+<li>Uses the support to move a virtual robot along the room boundary.</li>
+<li>The business logic is embedded in the operation <tt>boundary</tt> </li>
+</ul>
+</m>
+
+
+</td>
+<td> 
+<pre>
+<ks>cril</ks>  = concrete-robot interaction language		<k>{ 'robotmove': 'MOVE', 'time': TIME }</k>	
+</pre>
+Using the  
+<a href="https://www.vogella.com/tutorials/ApacheHttpClient/article.html" target="web">org.apache.http</a>  library:
+<ul>
+    <li>sets a <tt>HTTP</tt> connection with the <tt>WENv</tt> working at the given <tt>hostAddr</tt> </li>
+    <li>provides methods (<tt>moveForward</tt>, <tt>turnLeft</tt>, etc. ) to send commands written in <ks>cril</ks> language</li>
+	<li>handles the answer to the command and updates a map of the room:
+	<m><pre>|r, 1, 1, 1, 
+|1, 0, 0, 1, 
+|1, 0, 0, 1, 
+|1, 1, 1, 1, </pre></m>
+	
+	</li> 
+</ul>
+</td>
+</tr>
+
+<tr>
+<td style="width:50%"><a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/virtualrobotclient/ClientWebsockJavax.kt" target="code">
+ClientWebsockJavax.kt</a>
+<br/> 
+<m>It is the Kotlin version of 
+<a href="../../it.unibo.virtualrobotclient/app/src/main/java/it/unibo/wenv/ClientWebsockJavax.java" target="code">ClientWebsockJavax.java</a>
+</m></td>
+<td>The client  <i>walks along the boundary</i> of the room.
+<br/><br/>
+The client interacts with the WEnv via <em>web-scokets</em>, by using the  
+<a href="http://losviluppatore.it/i-websocket-comunicazione-asincrona-full-duplex-per-il-web/" target="web">javax.websocket</a>  library . <br/> 
+</td>
+</tr>
+
+<tr>
+<td style="width:50%">
+<a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/interaction/WEnvConnSupportNoChannel.kt" target="code">
+WEnvConnSupportNoChannel.kt</a>
+</td>
+<td> 
+<pre>
+<ks>cril</ks>  = concrete-robot interaction language		<k>{ 'robotmove': 'MOVE', 'time': TIME }</k>	
+<ks>hril</ks>  = highlevel robot interaction language		<k>w | s | l | r | h</k>
+</pre>
+Using the  
+<a href="http://losviluppatore.it/i-websocket-comunicazione-asincrona-full-duplex-per-il-web/" target="web">javax.websocket</a>  library:
+<ul>
+    <li>sets a connection with the <tt>WENv</tt> working at the given <tt>hostAddr</tt>, using websocket </li>
+    <li>provides a method (<tt>sendMessage</tt>) to send commands written in <ks>hril</ks>  to a robot that understands the <ks>cril</ks> language</li>
+	<li>shows the messages sent on the websocket by the <tt>WENv</tt> </li> 
+</ul>
+
+</td>
+</tr>
+
+<tr>
+<td style="width:50%"><a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/interaction/WEnvConnSupport.kt" target="code">
+WEnvConnSupport.kt</a>
+<br/><br/><m>
+<a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/interaction/UseWEnvConnSupport.kt" target="code">
+UseWEnvConnSupport.kt</a>:
+<ul>
+<li>Uses the support to move a virtual robot along the room boundary.</li>
+<li>The business logic is embedded in the callback given to the <tt>activateReceiver</tt> method</li>
+</ul>
+</m>
+
+</td>
+<td><pre>
+<ks>cril</ks>  = concrete-robot interaction language		<k>{ 'robotmove': 'MOVE', 'time': TIME }</k>
+<ks>hril</ks>  = highlevel robot interaction language		<k>w | s | l | r | h</k>
+</pre>
+Using the  
+<a href="http://losviluppatore.it/i-websocket-comunicazione-asincrona-full-duplex-per-il-web/" target="web">javax.websocket</a>  library :
+
+<ul>
+ <li>sets a connection with the <tt>WENv</tt> working at the given <tt>hostAddr</tt>, using websocket</li>
+ <li>provides a method (<tt>sendMessage</tt>) to send commands written in <ks>hril</ks>  to a robot that understands the <ks>cril</ks> language</li>
+ <li>redirects the messages sent on the websocket by the <tt>WENv</tt> to an internal <em>Kotlin channel</em></li>
+ <li>provides methods (<tt>activateReceiver, startReceiver</tt>) that calls a given callback 
+    for each message received on the <em>Kotlin channel</em></li>
+</ul>
+</td>
+</tr>
+
+
+</tbody>	
+</table></center>
+
+<h3>Clients as actors </h3>
+
+<center><table style="width:95%">
+<tbody>	
+
+<tr>
+<td style="width:50%"><a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/interaction/clientsFsmNaive/robotActorTry.kt" target="code">
+robotActorTry.kt</a>
+
+<br/><br/>
+
+<m>
+<a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/interaction/clientsFsmNaive/robotActorTryUsage.kt" target="code">
+robotActorTryUsage.kt</a>
+<ul>
+<li>Uses the FSM 
+to move a virtual robot forward and backward
+<li>The business logic is expressed by commands sent to the FSM </li>
+</ul>
+</m>
+<center><img src="./img/robotActorTry.png" alt="robotActorTry" width="100%"  ></center>
+
+<k>TODO</k>: rifare figura senza msgs da WEnv a robotActorTry
+</td>
+<td>
+<a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/interaction/clientsFsmNaive/robotActorTry.kt" target="code">
+robotActorTry.kt</a> sends commands to <tt>WEnv</tt> by using as <em>virtualRobotSupport</em> the compoment
+<a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/interaction/WEnvConnSupportNoChannel.kt" target="code">
+WEnvConnSupportNoChannel.kt</a>.
+<br/><br/>
+Its behavior can be modelled as a <a href="https://en.wikipedia.org/wiki/Finite-state_machine" target="web">Finite State Machine</a>
+where each <bc>state</bc> is mapped into a <bc>function</bc> whose body specifies the <bc>actions</bc> to be executed in that state
+:<br/><br/>
+<center><img src="./img/robotActorFsm.png" alt="robotActorFsm" width="50%"  ></center>
+
+</td>
+</tr>
+
+<tr>
+<td>
+<a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/interaction/clientsFsmNaive/robotActorAppMsg.kt" target="code">
+robotActorAppMsg.kt</a>
+
+<br/><br/>
+
+<m>
+<a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/interaction/clientsFsmNaive/robotActorAppMsgUsage.kt" target="code">
+robotActorAppMsgUsage	.kt</a>
+<ul>
+<li>Uses the FSM 
+to move a virtual robot forward and backward
+<li>The business logic is expressed by commands sent to the FSM </li>
+</ul>
+</m>
+<center><img src="./img/robotActor.png" alt="robotActor" width="100%"  ></center>
+<k>TODO</k>: rifare figura senza msgs da WEnv a robotActor
+</td>
+
+<td>
+<a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/interaction/clientsFsmNaive/robotActorAppMsg.kt" target="code">
+robotActorAppMsg.kt</a>  sends commands to <tt>WEnv</tt> by using as <em>virtualRobotSupport</em> the component
+<a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/interaction/WEnvConnSupport.kt" target="code">
+WEnvConnSupport.kt</a>
+<br/><br/>
+The class 
+<a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/fsm/AppMsg.kt" target="code">
+AppMsg.kt</a> implements our idea of messages at application-level.
+
+The external representation is a String written in Prolog (JSON-compatible) syntax as a Prolog-Term with 5 arguments:
+<pre>
+msg( MSGID, MSGTYPE, SENDER, RECEIVER, CONTENT, SEQNUM )
+</pre>
+
+We distinguish among different application-message types:
+<pre>enum class AppMsgType{ event, dispatch, request, reply, invitation }</pre>
+
+<center><img src="./img/msgTypes.png" alt="msgTypes" width="50%"  ></center>
+
+
+</td>
+</tr>
+
+</tbody>	
+</table></center>
+
+<h3>Clients as FSM </h3>
+
+<center><table style="width:95%">
+<tbody>	
+
+<tr>
+<td style="width:50%">
+<a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/fsm/WalkerHttpCaller.kt" target="code">WalkerHttpCaller.kt</a> 
+</td>
+<td>
+<h4>Request-response</h4>
+The behavior of the <a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/fsm/WalkerHttpCaller.kt" target="code">WalkerHttpCaller.kt</a> is
+structured as a <i>Finite State MAchine</i> (<em>FSM</em>) that moves the virtual robot ahead (by using the
+<a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/interaction/WEnvHTTPSupport.kt" target="code"> WEnvHTTPSupport.kt</a>) 
+until an obstacle (a wall) is found.<br/>
+If the robot starts at its HOME cell <tt>(0,0)</tt>, the result could be the map created by the 
+<a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/interaction/WEnvHTTPSupport.kt" target="code"> WEnvHTTPSupport.kt</a>:
+<m>
+<pre>
+|1, 
+|1, 
+|1, 
+|r, 
+|X, 
+ direction=DOWN
+</pre>
+</m>
+</td>
+</tr>
+
+<tr>
+<td style="width:50%">
+<a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/fsm/walker.kt" target="code">walker.kt</a> 
+</td>
+
+<td>
+<h4>Event-based</h4>
+The behavior of the <a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/fsm/walker.kt" target="code">walker.kt</a> is
+structured as a <i>Finite State MAchine</i> (<em>FSM</em>) that moves the virtual robot ahead (by using the
+<a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/interaction/WEnvConnSupport.kt" target="code"> WEnvConnSupport.kt</a>) 
+until an obstacle (a wall) is found.<br/>
+The result of the computation could be the number of steps done. A room map can be built by the application.
+<br/><br/>
+The events raised from WEnv ( <tt>endmove, collision, sonarName</tt> ) are mapped into dispatches sent to walker.
+<br/><br/>
+We could set the step time so that (e.g. 400)
+each step will cover a distance equal to the length of the robot.
+
+</td>
+</tr>
+
+
+<tr>
+<td style="width:50%">
+<a href="../../it.unibo.virtualrobotclient/app/src/main/kotlin/it/unibo/fsm/stepper.kt" target="code">stepper.kt</a> 
+</td>
+<td>
+
+</td>
+</tr>
+
+</tbody>	
+</table></center>
+
+-->
+
 <!--
 <table style="width:98%">
 <tbody>	
