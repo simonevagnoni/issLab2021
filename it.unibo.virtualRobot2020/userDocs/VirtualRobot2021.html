@@ -276,9 +276,9 @@ $(document).ready(function(){
 $(function () {
 	$( "#rsocket" ).click(function() {  doMove("turnRight", 300);    })  
  
-	$( "#wsocket" ).click(function() {  doMove("moveForward", 600);      })
+	$( "#wsocket" ).click(function() {  doMove("moveForward", 1200);      })
  
-	$( "#ssocket" ).click(function() { doMove("moveBackward", 600);  })
+	$( "#ssocket" ).click(function() { doMove("moveBackward", 1200);  })
 		
 	$( "#hsocket" ).click(function() { doMove("alarm", 100);         })
  
@@ -382,6 +382,7 @@ when they detect an obstacle (fixed or mobile). For example:
 </ul>
 
 <h2 id="inside">Inside WEnv</h2>
+ 
 The WEnv implementation is based on two main components: 
 the <a href="../node/WEnv/server/src/WebpageServer.js" target="code"><ks>WebpageServer.js</ks></a> written with the 
 <a href="https://expressjs.com/it/" target="web">Node express</a> framework
