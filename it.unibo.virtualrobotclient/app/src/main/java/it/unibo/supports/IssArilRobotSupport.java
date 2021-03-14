@@ -10,6 +10,7 @@ package it.unibo.supports;
 
 import it.unibo.annotations.*;
 import it.unibo.interaction.*;
+<<<<<<< HEAD
 import java.util.HashMap;
 
 public class IssArilRobotSupport implements IssOperations {
@@ -21,6 +22,20 @@ public class IssArilRobotSupport implements IssOperations {
         IssAnnotationUtil.getMoveTimes( supportedObj, timemap );
     }
     public IssArilRobotSupport( String robotConfigFile, IssOperations support){
+=======
+
+import java.util.HashMap;
+
+public class IssArilRobotSupport implements IssCommSupport {
+    private IssCommSupport support;
+    private static HashMap<String, Integer> timemap = new HashMap<String, Integer>( );
+
+    public IssArilRobotSupport(Object supportedObj, IssCommSupport support){
+        this.support   = support;
+        IssAnnotationUtil.getMoveTimes( supportedObj, timemap );
+    }
+    public IssArilRobotSupport( String robotConfigFile, IssCommSupport support){
+>>>>>>> moverobot
         this.support   = support;
         if( ! IssAnnotationUtil.checkRobotConfigFile(robotConfigFile, timemap) ){
             timemap.put("h", MsgRobotUtil.htime );
@@ -72,4 +87,15 @@ public class IssArilRobotSupport implements IssOperations {
     public void removeObserver( IssObserver obs ){
         //TODO
     }
+<<<<<<< HEAD
+=======
+    @Override
+    public void close(){
+        try {
+            support.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+>>>>>>> moverobot
 }

@@ -13,7 +13,11 @@ import it.unibo.supports.IssCommsSupportFactory;
 
 @IssProtocolSpec( configFile ="WebsocketBasicConfig.txt" )
 public class ClientBoundaryWebsockBasicSynch {
+<<<<<<< HEAD
     private IssOperations support;
+=======
+    private IssOperations support;  //The full IssCommSupport is not required
+>>>>>>> moverobot
 
     //Factory method
     public static ClientBoundaryWebsockBasicSynch create(){
@@ -47,8 +51,17 @@ public class ClientBoundaryWebsockBasicSynch {
 
 
     public static void main(String args[]){
+<<<<<<< HEAD
         ClientBoundaryWebsockBasicSynch appl = ClientBoundaryWebsockBasicSynch.create();
         String trip = appl.boundary();
         System.out.println("trip="+trip);
+=======
+        System.out.println("ClientBoundaryWebsockBasicSynch | main start n_Threads=" + Thread.activeCount());
+        ClientBoundaryWebsockBasicSynch appl = ClientBoundaryWebsockBasicSynch.create();
+        System.out.println("ClientBoundaryWebsockBasicSynch | appl  n_Threads=" + Thread.activeCount());
+        String trip = appl.boundary();
+        System.out.println("trip="+trip);
+        System.out.println("ClientBoundaryWebsockBasicSynch | main end n_Threads=" + Thread.activeCount());
+>>>>>>> moverobot
     }
 }

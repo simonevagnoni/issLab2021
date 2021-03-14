@@ -1,6 +1,17 @@
 /*
 ===============================================================
 ClientBoundaryUsingPost.java
+<<<<<<< HEAD
+=======
+USES IssProtoclConfig.txt and IssRobotConfig.txt
+USES the aril robot move language
+
+Synchronous REQUEST-RESPONSE used in a doBoundary operation
+that implements the business logic in a functional style
+based on recursive functions.
+
+The computation works in 1 thread
+>>>>>>> moverobot
 ===============================================================
 */
 package it.unibo.wenv;
@@ -33,6 +44,7 @@ public class ClientBoundaryUsingPost {
 MAIN
  */
 	public static void main(String[] args)   {
+<<<<<<< HEAD
 		Object appl = RobotApplicationStarter.createInstance(ClientBoundaryUsingPost.class);
 
 		if( appl != null ) {
@@ -40,6 +52,13 @@ MAIN
 			System.out.println("trip="+trip);
 		}
 
+=======
+		System.out.println("ClientBoundaryUsingPost | main start n_Threads=" + Thread.activeCount());
+		Object appl = RobotApplicationStarter.createInstance(ClientBoundaryUsingPost.class);
+		System.out.println("ClientBoundaryUsingPost | appl  n_Threads=" + Thread.activeCount());
+		String trip = ((ClientBoundaryUsingPost)appl).doBoundary(1,"");
+		System.out.println("trip="+trip);
+>>>>>>> moverobot
 	}
 	
  }

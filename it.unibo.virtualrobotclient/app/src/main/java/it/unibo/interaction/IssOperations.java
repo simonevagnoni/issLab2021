@@ -17,7 +17,10 @@ public interface IssOperations {
     void forward( String msg ) ;  //String related to cril, aril, AppMsg
     void request( String msg );
     void reply( String msg );
+<<<<<<< HEAD
     void registerObserver( IssObserver obs );
     void removeObserver( IssObserver obs );
+=======
+>>>>>>> moverobot
     String requestSynch( String msg );
 }

@@ -24,9 +24,15 @@ public class RobotApplicationStarter {
                 }
                 if (annot instanceof ArilRobotSpec) {
                     ProtocolInfo p = IssAnnotationUtil.checkProtocolConfigFile(protcolConfigFName);
+<<<<<<< HEAD
                     IssOperations commSupport = IssCommsSupportFactory.create(p.getProtocol(), p.getUrl());
                     System.out.println("RobotApplicationStarter | commSupport=" + commSupport);
                     IssOperations rs = new IssArilRobotSupport(robotConfigFName, commSupport);
+=======
+                    IssCommSupport commSupport = IssCommsSupportFactory.create(p.getProtocol(), p.getUrl());
+                    System.out.println("RobotApplicationStarter | commSupport=" + commSupport);
+                    IssCommSupport rs = new IssArilRobotSupport(robotConfigFName, commSupport);
+>>>>>>> moverobot
                     Object obj = clazz.getDeclaredConstructor(IssOperations.class).newInstance(rs);
                     //System.out.println("RobotApplicationStarter ArilRobotSpec | obj=" + obj  );
                     return obj;

@@ -20,8 +20,25 @@ import org.json.JSONObject;
 import java.net.URI;
 
 public class RobotSupport {
+<<<<<<< HEAD
 
     public static String doBoundary(int stepNum, String journey, IssOperations rs) {
+=======
+    private IssCommSupport rs;
+
+    public RobotSupport(IssCommSupport rs){
+        this.rs = rs;
+    }
+
+    public void request(String jsonMoveStr ) {
+        doRobotAsynchMove(jsonMoveStr,rs);
+    }
+
+    public void close(){
+        rs.close();
+    }
+    public static String doBoundarySynch(int stepNum, String journey, IssOperations rs) {
+>>>>>>> moverobot
         if (stepNum > 4) {
             return journey;
         }
@@ -32,10 +49,28 @@ public class RobotSupport {
         }
         //collision
         rs.requestSynch(MsgRobotUtil.lMsg);
+<<<<<<< HEAD
         return doBoundary(stepNum + 1, journey + "l", rs);
     }
 
     public static boolean sendHttpCmd(String URL, String move, int time)  {
+=======
+        return doBoundarySynch(stepNum + 1, journey + "l", rs);
+    }
+
+    //Utility
+    public static void doRobotAsynchMove(String jsonMoveStr, IssOperations rs) {
+        System.out.println(jsonMoveStr);
+        //"{\"robotmove\":\"...\", \"time\": ...}";
+        JSONObject jsonObj = new JSONObject(jsonMoveStr);
+        int time = Integer.parseInt( jsonObj.get("time").toString() );
+        rs.forward( jsonMoveStr );
+        try { Thread.sleep(time+100); } catch (InterruptedException e) { e.printStackTrace(); }
+        //The answer is handled by the controllers
+    }
+
+    public static boolean requestSynch(String URL, String move, int time)  {
+>>>>>>> moverobot
         CloseableHttpClient httpclient = HttpClients.createDefault();
         try {
             System.out.println( move + " sendCmd "  );

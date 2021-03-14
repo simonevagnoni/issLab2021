@@ -7,10 +7,17 @@
 package it.unibo.supports;
 
 import it.unibo.interaction.IssObserver;
+<<<<<<< HEAD
 import it.unibo.interaction.IssOperations;
 import org.json.JSONObject;
 
 import javax.websocket.*;
+=======
+import org.json.JSONObject;
+
+import javax.websocket.*;
+import java.io.IOException;
+>>>>>>> moverobot
 import java.net.URI;
 import java.security.Principal;
 import java.util.Vector;
@@ -24,7 +31,11 @@ import java.util.Vector;
  ===============================================================
  */
 @ClientEndpoint     //javax.websocket annotation
+<<<<<<< HEAD
 public class IssWsSupport implements IssOperations {
+=======
+public class IssWsSupport implements IssCommSupport {
+>>>>>>> moverobot
     private  String URL            = "unknown";
     private Session userSession    = null;
     private AnswerAvailable answerSupport;
@@ -132,7 +143,11 @@ public class IssWsSupport implements IssOperations {
             //this.userSession.getAsyncRemote().sendText(message);
             request(msg);
             //WAIT for the answer (reply) received by onMessage
+<<<<<<< HEAD
             //answerSupport.engage();   //OVERCOME: see version 2.0 of virtualrobot
+=======
+            //answerSupport.engage();   //OVERCOMED: see version 2.0 of virtualrobot
+>>>>>>> moverobot
             return answerSupport.get(); //wait for the answer
         }catch( Exception e){
             System.out.println("        IssWsSupport | request ERROR " + e.getMessage());
@@ -145,6 +160,10 @@ public class IssWsSupport implements IssOperations {
         //System.out.println( "         IssWsSupport | WARNING: reply NOT IMPLEMENTED HERE"  );
     }
 
+<<<<<<< HEAD
+=======
+//------------------------------ IssCommSupport ----------------------------------
+>>>>>>> moverobot
     @Override
     public void registerObserver( IssObserver obs ){
         observers.add( obs );
@@ -154,4 +173,15 @@ public class IssWsSupport implements IssOperations {
     public void removeObserver( IssObserver obs ){
         observers.remove( obs );
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public void close(){
+        try { userSession.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+>>>>>>> moverobot
 }
