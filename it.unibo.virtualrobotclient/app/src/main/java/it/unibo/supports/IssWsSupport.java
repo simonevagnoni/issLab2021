@@ -5,22 +5,27 @@
  ===============================================================
  */
 package it.unibo.supports;
+<<<<<<< HEAD
 
 import it.unibo.interaction.IssObserver;
 <<<<<<< HEAD
 import it.unibo.interaction.IssOperations;
+=======
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
 import org.json.JSONObject;
-
 import javax.websocket.*;
+<<<<<<< HEAD
 =======
 import org.json.JSONObject;
 
 import javax.websocket.*;
 import java.io.IOException;
 >>>>>>> moverobot
+=======
+import java.io.IOException;
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
 import java.net.URI;
 import java.security.Principal;
-import java.util.Vector;
 
 /**
  IssWsSupport.java
@@ -32,15 +37,17 @@ import java.util.Vector;
  */
 @ClientEndpoint     //javax.websocket annotation
 <<<<<<< HEAD
+<<<<<<< HEAD
 public class IssWsSupport implements IssOperations {
 =======
 public class IssWsSupport implements IssCommSupport {
 >>>>>>> moverobot
+=======
+public class IssWsSupport extends IssObservableCommSupport implements IssCommSupport {
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
     private  String URL            = "unknown";
     private Session userSession    = null;
     private AnswerAvailable answerSupport;
-
-    private Vector<IssObserver> observers = new Vector<IssObserver>();
 
     public IssWsSupport( String url ){
         try {
@@ -58,7 +65,7 @@ public class IssWsSupport implements IssCommSupport {
     public void onOpen(Session userSession) { //, @PathParam("username") String username, EndpointConfig epConfig
         //ClientEndpointConfig clientConfig = (ClientEndpointConfig) epConfig;
         Principal userPrincipal = userSession.getUserPrincipal();
-        System.out.println("        IssWsSupport | onOpen userPrincipal=" + userPrincipal );
+        //System.out.println("        IssWsSupport | onOpen userPrincipal=" + userPrincipal );
         if( userPrincipal != null )  { //there is an authenticated user
             System.out.println("        IssWsSupport | onOpen user=" + userPrincipal.getName());
         }
@@ -78,7 +85,7 @@ public class IssWsSupport implements IssCommSupport {
     public void onMessage(String message)   {
         try {
              //{"collision":"true ","move":"..."} or {"sonarName":"sonar2","distance":19,"axis":"x"}
-            System.out.println("        IssWsSupport | onMessage:" + message);
+            //System.out.println("        IssWsSupport | onMessage:" + message);
             JSONObject jsonObj = new JSONObject(message) ;
             if ( jsonObj.has("endmove")  ) {
                 //HANDLE THE ANSWER
@@ -90,11 +97,12 @@ public class IssWsSupport implements IssCommSupport {
                 boolean collision = jsonObj.getBoolean("collision");
                 //System.out.println("        IssWsSupport | onMessage collision=" + collision );
             } else if (jsonObj.has("sonarName") ) {
-                String sonarName = jsonObj.getString( "sonarName");
-                String distance  = jsonObj.get("distance").toString();
-                System.out.println("        IssWsSupport | onMessage sonarName=" + sonarName + " distance=" + distance);
+                //String sonarName = jsonObj.getString( "sonarName");
+                //String distance  = jsonObj.get("distance").toString();
+                //System.out.println("        IssWsSupport | onMessage sonarName=" + sonarName + " distance=" + distance);
             }
-            updateObservers( jsonObj );
+            updateObservers( jsonObj );  //Requires time to update all ...
+            //Why we must wait for the execution of all the observers?
         } catch (Exception e) {
             System.out.println("        IssWsSupport | onMessage ERROR " + e.getMessage());
 
@@ -106,18 +114,12 @@ public class IssWsSupport implements IssCommSupport {
         System.out.println("IssWsSupport | disconnected  " + error.getMessage());
     }
 
-    protected void updateObservers(JSONObject jsonOnj ){
-        //System.out.println("IssWsSupport | updateObservers " + observers.size() );
-        observers.forEach( v -> {
-            //System.out.println("IssWsSupport | updates " + v );
-            v.handleInfo(jsonOnj);
-        } );
-    }
     
 //------------------------------ IssOperations ----------------------------------
      @Override
     public void forward(String msg)  {
         try {
+            //System.out.println("        IssWsSupport | forward:" + msg);
              //this.userSession.getAsyncRemote().sendText(message);
             userSession.getBasicRemote().sendText(msg); //synch: blocks until the message has been transmitted
             //System.out.println("        IssWsSupport | DONE forward " + msg);
@@ -144,10 +146,14 @@ public class IssWsSupport implements IssCommSupport {
             request(msg);
             //WAIT for the answer (reply) received by onMessage
 <<<<<<< HEAD
+<<<<<<< HEAD
             //answerSupport.engage();   //OVERCOME: see version 2.0 of virtualrobot
 =======
             //answerSupport.engage();   //OVERCOMED: see version 2.0 of virtualrobot
 >>>>>>> moverobot
+=======
+            //answerSupport.engage();   //OVERCOMED: see version 2.0 of virtualrobot
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
             return answerSupport.get(); //wait for the answer
         }catch( Exception e){
             System.out.println("        IssWsSupport | request ERROR " + e.getMessage());
@@ -161,6 +167,7 @@ public class IssWsSupport implements IssCommSupport {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 //------------------------------ IssCommSupport ----------------------------------
 >>>>>>> moverobot
@@ -168,10 +175,16 @@ public class IssWsSupport implements IssCommSupport {
     public void registerObserver( IssObserver obs ){
         observers.add( obs );
     }
+=======
+//------------------------------ IssCommSupport ----------------------------------
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
 
     @Override
-    public void removeObserver( IssObserver obs ){
-        observers.remove( obs );
+    public void close(){
+        try { userSession.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 <<<<<<< HEAD
 =======

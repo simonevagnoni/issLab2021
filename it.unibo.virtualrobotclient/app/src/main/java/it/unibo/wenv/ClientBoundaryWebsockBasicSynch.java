@@ -14,10 +14,14 @@ import it.unibo.supports.IssCommsSupportFactory;
 @IssProtocolSpec( configFile ="WebsocketBasicConfig.txt" )
 public class ClientBoundaryWebsockBasicSynch {
 <<<<<<< HEAD
+<<<<<<< HEAD
     private IssOperations support;
 =======
     private IssOperations support;  //The full IssCommSupport is not required
 >>>>>>> moverobot
+=======
+    private IssOperations support;  //The full IssCommSupport is not required
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
 
     //Factory method
     public static ClientBoundaryWebsockBasicSynch create(){
@@ -52,9 +56,15 @@ public class ClientBoundaryWebsockBasicSynch {
 
     public static void main(String args[]){
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        System.out.println("ClientBoundaryWebsockBasicSynch | main start n_Threads=" + Thread.activeCount());
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
         ClientBoundaryWebsockBasicSynch appl = ClientBoundaryWebsockBasicSynch.create();
+        System.out.println("ClientBoundaryWebsockBasicSynch | appl  n_Threads=" + Thread.activeCount());
         String trip = appl.boundary();
         System.out.println("trip="+trip);
+<<<<<<< HEAD
 =======
         System.out.println("ClientBoundaryWebsockBasicSynch | main start n_Threads=" + Thread.activeCount());
         ClientBoundaryWebsockBasicSynch appl = ClientBoundaryWebsockBasicSynch.create();
@@ -63,5 +73,8 @@ public class ClientBoundaryWebsockBasicSynch {
         System.out.println("trip="+trip);
         System.out.println("ClientBoundaryWebsockBasicSynch | main end n_Threads=" + Thread.activeCount());
 >>>>>>> moverobot
+=======
+        System.out.println("ClientBoundaryWebsockBasicSynch | main end n_Threads=" + Thread.activeCount());
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
     }
 }

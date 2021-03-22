@@ -17,7 +17,10 @@ import it.unibo.interaction.IssOperations;
 import it.unibo.interaction.MsgRobotUtil;
 import it.unibo.supports.IssCommsSupportFactory;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
 @IssProtocolSpec( configFile ="HttpBasicConfig.txt" )
 public class ClientBoundaryUsingPostBasic {
 	private IssOperations rs;	//robot support

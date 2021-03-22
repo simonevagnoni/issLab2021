@@ -18,9 +18,12 @@ public interface IssOperations {
     void request( String msg );
     void reply( String msg );
 <<<<<<< HEAD
+<<<<<<< HEAD
     void registerObserver( IssObserver obs );
     void removeObserver( IssObserver obs );
 =======
 >>>>>>> moverobot
+=======
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
     String requestSynch( String msg );
 }

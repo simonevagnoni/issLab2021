@@ -1,5 +1,12 @@
 /**
  * ClientNaiveUsingWs
+<<<<<<< HEAD
+=======
+ ===============================================================
+ * Technology-dependent application
+ * TODO. eliminate the communication details from this level
+ ===============================================================
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
  */
 
 package it.unibo.wenv;
@@ -11,11 +18,16 @@ import org.json.JSONObject;
 
 @ClientEndpoint
 public class ClientNaiveUsingWs {
+<<<<<<< HEAD
 
     Session userSession    = null;
     private MessageHandler messageHandler;
     //private JSONParser simpleparser ;
  
+=======
+    private Session userSession    = null;
+
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
     public ClientNaiveUsingWs(String addr) {
             System.out.println("ClientNaiveUsingWs |  CREATING ...");
             init(addr);
@@ -23,7 +35,10 @@ public class ClientNaiveUsingWs {
 
     protected void init(String addr){
         try {
+<<<<<<< HEAD
             //simpleparser = new JSONParser();
+=======
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
             WebSocketContainer container = ContainerProvider.getWebSocketContainer();
             container.connectToServer(this, new URI("ws://"+addr));
         } catch (URISyntaxException ex) {
@@ -35,7 +50,10 @@ public class ClientNaiveUsingWs {
         }
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
     @OnOpen
     public void onOpen(Session userSession) {
         System.out.println("ClientNaiveUsingWs | opening websocket");
@@ -72,8 +90,11 @@ public class ClientNaiveUsingWs {
 
     }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
 /*
 BUSINESS LOGIC
  */
@@ -123,7 +144,11 @@ MAIN
         try{
             System.out.println("ClientNaiveUsingWs | main start n_Threads=" + Thread.activeCount());
             ClientNaiveUsingWs appl = new ClientNaiveUsingWs("localhost:8091");
+<<<<<<< HEAD
             appl.doBasicMoves();
+=======
+            //appl.doBasicMoves();
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
             appl.doBasicMovesDelayed();
             // give time to receive messages from websocket
             //Thread.sleep(2000);
@@ -132,7 +157,10 @@ MAIN
             System.err.println("ClientNaiveUsingWs | InterruptedException exception: " + ex.getMessage());
         }
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
 }
 
 /*

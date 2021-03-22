@@ -10,9 +10,12 @@ package it.unibo.supports;
 
 import it.unibo.interaction.IssObserver;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import it.unibo.interaction.IssOperations;
 =======
 >>>>>>> moverobot
+=======
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
@@ -21,6 +24,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 import java.net.URI;
@@ -31,6 +35,11 @@ import java.net.URI;
 
 public class IssHttpSupport implements IssCommSupport {
 >>>>>>> moverobot
+=======
+import java.net.URI;
+
+public class IssHttpSupport implements IssCommSupport {
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
     private CloseableHttpClient httpclient;
     private  String URL  = "unknown";
 
@@ -38,11 +47,16 @@ public class IssHttpSupport implements IssCommSupport {
         httpclient = HttpClients.createDefault();
         URL        = url;
 <<<<<<< HEAD
+<<<<<<< HEAD
         System.out.println( "        IssHttpSupport | created IssHttpSupport url=" + url  );
 =======
         System.out.println("        IssHttpSupport | created IssHttpSupport url=" + url  );
         //System.out.println("        IssHttpSupport |  n_Threads=" + Thread.activeCount());
 >>>>>>> moverobot
+=======
+        System.out.println("        IssHttpSupport | created IssHttpSupport url=" + url  );
+        //System.out.println("        IssHttpSupport |  n_Threads=" + Thread.activeCount());
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
     }
 
     @Override
@@ -77,8 +91,11 @@ public class IssHttpSupport implements IssCommSupport {
         //TODO
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
     @Override
     public void close(){
         try {
@@ -87,7 +104,10 @@ public class IssHttpSupport implements IssCommSupport {
             e.printStackTrace();
         }
     }
+<<<<<<< HEAD
 >>>>>>> moverobot
+=======
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
  //===================================================================
 
     protected String performrequest( String msg )  {
@@ -105,16 +125,22 @@ public class IssHttpSupport implements IssCommSupport {
             //System.out.println( "IssHttpSupport | response:" + response  );
             String jsonStr = EntityUtils.toString( response.getEntity() );
 <<<<<<< HEAD
+<<<<<<< HEAD
             JSONObject jsonObj = new JSONObject(jsonStr) ;
             if( jsonObj.get("endmove") != null ) {
                 endmove = jsonObj.getBoolean("endmove");
                 //System.out.println("IssHttpSupport | response=" + endmove);
 =======
+=======
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
             JSONObject jsonEndmove = new JSONObject(jsonStr) ;
             //System.out.println("IssHttpSupport | jsonEndmove=" + jsonEndmove);
             if( jsonEndmove.get("endmove") != null ) {
                 endmove = jsonEndmove.getBoolean("endmove");
+<<<<<<< HEAD
 >>>>>>> moverobot
+=======
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
             }
         } catch(Exception e){
             System.out.println("        IssHttpSupport | ERROR:" + e.getMessage());

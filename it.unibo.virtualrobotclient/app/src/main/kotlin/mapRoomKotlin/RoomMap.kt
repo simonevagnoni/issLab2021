@@ -8,7 +8,6 @@ class RoomMap private constructor()  { //: Serializable
 	companion object {
 //      private const val serialVersionUID = 1L
         private var singletonRoomMap: RoomMap? = null
-		
         fun getRoomMap(): RoomMap {
             if (singletonRoomMap == null) singletonRoomMap = RoomMap()
             return singletonRoomMap!!
@@ -94,7 +93,6 @@ class RoomMap private constructor()  { //: Serializable
 
     override fun toString(): String {
         val builder = StringBuilder()
-        if( roomMap.size == 0) return "| empty map |"
         for (a in roomMap) {  //row ArrayList
             builder.append("|")
             for (b in a) {  //column

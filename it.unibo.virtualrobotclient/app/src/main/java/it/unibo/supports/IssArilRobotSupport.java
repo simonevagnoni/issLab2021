@@ -7,20 +7,21 @@
  ===============================================================
  */
 package it.unibo.supports;
-
 import it.unibo.annotations.*;
 import it.unibo.interaction.*;
 <<<<<<< HEAD
 import java.util.HashMap;
 
-public class IssArilRobotSupport implements IssOperations {
-    private IssOperations support;
+public class IssArilRobotSupport implements IssCommSupport {
+    private IssCommSupport support;
     private static HashMap<String, Integer> timemap = new HashMap<String, Integer>( );
 
-    public IssArilRobotSupport(Object supportedObj, IssOperations support){
+    public IssArilRobotSupport(Object supportedObj, IssCommSupport support){
         this.support   = support;
         IssAnnotationUtil.getMoveTimes( supportedObj, timemap );
+        timemap.forEach(  ( k,v ) -> System.out.println(""+k+":"+v));
     }
+<<<<<<< HEAD
     public IssArilRobotSupport( String robotConfigFile, IssOperations support){
 =======
 
@@ -36,19 +37,28 @@ public class IssArilRobotSupport implements IssCommSupport {
     }
     public IssArilRobotSupport( String robotConfigFile, IssCommSupport support){
 >>>>>>> moverobot
+=======
+    public IssArilRobotSupport( String robotConfigFile, IssCommSupport support){
+        //System.out.println("IssArilRobotSupport | robotConfigFile="+robotConfigFile );
+>>>>>>> c93bbbc933d90211548af7f07499f9d1df487632
         this.support   = support;
-        if( ! IssAnnotationUtil.checkRobotConfigFile(robotConfigFile, timemap) ){
+        if( IssAnnotationUtil.checkRobotConfigFile(robotConfigFile, timemap) ){
+            timemap.forEach(  ( k,v ) -> System.out.println("move config "+k+":"+v));
+        }
+        else {
             timemap.put("h", MsgRobotUtil.htime );
             timemap.put("l", MsgRobotUtil.ltime );
             timemap.put("r", MsgRobotUtil.rtime );
             timemap.put("w", MsgRobotUtil.wtime );
             timemap.put("s", MsgRobotUtil.stime );
+            timemap.forEach(  ( k,v ) -> System.out.println("move default "+k+":"+v));
         };
+
     }
 
     //The movetime is takan form the timemap, that is configured via annotations
     protected String translate(String arilMove){
-        //System.out.println( "        IssArilRobotSupport | translate:" + arilMove );
+        //System.out.println( "        IssArilRobotSupport | translate:" + arilMove + " support=" + support);
         switch( arilMove.trim() ){ //translate into critl move
             case "h" : return "{\"robotmove\":\"alarm\", \"time\": "+ timemap.get("h")+"}";
             case "w" : return "{\"robotmove\":\"moveForward\", \"time\": "+ timemap.get("w")+"}";
@@ -79,13 +89,24 @@ public class IssArilRobotSupport implements IssCommSupport {
         //System.out.println( "         IssArilRobotSupport | WARNING: reply NOT IMPLEMENTED"  );
     }
 
+//------------------------------ IssCommSupport ----------------------------------
     @Override
     public void registerObserver( IssObserver obs ){
-       //TODO
+        support.registerObserver( obs );
     }
+
     @Override
     public void removeObserver( IssObserver obs ){
-        //TODO
+        support.removeObserver( obs );
+    }
+
+    @Override
+    public void close(){
+        try {
+            support.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 <<<<<<< HEAD
 =======
